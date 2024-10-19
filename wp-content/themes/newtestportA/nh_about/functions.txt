@@ -1,0 +1,30 @@
+register_sidebar( array(
+    'name' => __( 'About Us Main Content', 'twentyten' ),
+    'id' => 'about_main',
+    'description' => __( 'The primary widget area', 'twentyten' ),
+    'before_widget' => '<div class="widget-container %2s">',
+    'after_widget' => '</div>',
+    'before_title' => '',
+    'after_title' => '',
+) );
+
+
+register_sidebar( array(
+    'name' => __( 'About Us Mission', 'twentyten' ),
+    'id' => 'about_mission',
+    'description' => __( 'The primary widget area', 'twentyten' ),
+    'before_widget' => '<div class="widget-container %2s">',
+    'after_widget' => '</div>',
+    'before_title' => '',
+    'after_title' => '',
+) );
+
+register_sidebar( array(
+    'name' => __( 'About Us Vision', 'twentyten' ),
+    'id' => 'about_vision',
+    'description' => __( 'The primary widget area', 'twentyten' ),
+    'before_widget' => '<div class="widget-container %2s">',
+    'after_widget' => '</div>',
+    'before_title' => '',
+    'after_title' => '',
+) );
