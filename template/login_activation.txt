@@ -1,0 +1,75 @@
+==================================
+SINGLE LOGIN orch
+==================================
+NOTE: 
+dili rani magsend kay 3D today : remove subject header
+----------------------------------
+
+Email Subject: account_name (Website Update)
+To: to_email
+Cc: cc_email
+Agent to queue: to_queue
+
+Dear Valued Client,
+
+We have implemented your requested change(s) in the website:
+
+page_title
+- added login functionality
+page_link
+
+Please see below for your login access:
+Link: page_link
+Username: _username
+Password: _password
+
+Sincerely,
+Proweaver Support Team
+
+2271
+
+==================================
+MULTIPLE LOGIN orch
+==================================
+
+Email Subject: account_name (Website Updates)
+To: to_email
+Cc: cc_email
+Agent to queue: to_queue
+
+Dear Valued Client,
+
+We have implemented your requested change(s) in the website:
+
+Added login functionality on content area of the following pages:
+
+page_title
+- added login functionality
+page_link
+
+page_title2
+- added login functionality
+page_link2
+
+Please see below for your login access:
+Link: page_link
+Username: _username
+Password: _password
+
+Link: page_link2
+Username: _username2
+Password: _password2
+
+Should you have other concerns, please let us know.
+
+
+Sincerely,
+Proweaver Support Team
+
+2271
+
+GIT File Path
+git_file_path
+
+Screenshot File Path
+scrn_file_path

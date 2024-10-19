@@ -1,0 +1,62 @@
+.fa-eye, .js-labelFile:hover, [type="radio"]:checked + label:hover {
+  color: #fff !important;
+}
+
+.fa-eye .staffing-model, .js-labelFile:hover, [type="radio"]:checked + label:hover {
+  color: #495057 !important;
+}
+
+-----------------
+
+Staffing Solutions
+
+> Full Name [Text field]
+> Organization Name [Text field]
+> Email Address [Email field]
+> Phone Number [Text field]
+> Preferred Contact Method [Radio Button]
+Email 
+Phone 
+> Staffing Needs Information
+Staffing Model (Choose the type of staffing you need) [Radio Button]
+Per Diem (Short-term staffing for unexpected absences or peak periods)
+Contract Staffing (Project-based staffing during periods of high demand)
+Permanent Placement (Long-term staff for stability and continuity of care) 
+
+Type of Staff Required [Checkbox]
+Licensed Nursing Personnel (RNs, LPNs, CNAs) 
+Allied Health Professionals (PTs, OTs, RTs, Medical Technologists) 
+Specialized Staff (Surgical Technologists, Radiologic Technologists, Pharmacists) 
+
+> Number of Positions Required [Text field]
+> Preferred Start Date [Date Picker]
+> Expected Duration (for temporary or contract staffing) [Text field]
+> Additional Requirements or Details (e.g., specific certifications, experience levels, etc.) [Multiline]
+Submit [Submit Button]
+
+
+-----------------
+
+
+<span style="font-style: italic; text-transform: none; font-weight: 400;"><i></i></span>
+
+
+
+git remote add origin git@18.143.187.52:carolinacareon210.git
+
+git add . && git commit -m ' 177449992 - bu' && git push origin master
+
+git add . && git commit -m ' 177449992 - up' && git push origin master
+----------------
+git add . && git commit -m ' 177449053 - bu ' && git push origin master
+git add . && git commit -m ' 177449053 - up ' && git push origin master
+
+
+
+
+
+
+
+
+
+

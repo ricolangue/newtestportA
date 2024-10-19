@@ -1,0 +1,39 @@
+Email Subject: account_name (Website Update)
+To: to_email
+Cc: cc_email
+Agent to queue: to_queue
+
+Dear Valued Client,
+
+We have implemented your requested change(s) in the website:
+
+page_title
+- added upload functionality on content area
+page_link
+
+To upload a file please follow the steps below:
+
+> Access the WordPress dashboard using the credentials provided below:
+login_link
+username: _username
+password: _password
+
+> To upload a file, click “Browse a file here” on the content area. Once the dropdown appears, click “Browse” and select the file to be uploaded. To finish your upload, click the “upload” button. The changes will then be automatically implemented on your website.
+
+> To delete a file, click the corresponding “Delete” link of the file you wish to remove. To finalize your changes, click “OK” on the prompt box. The changes will then be automatically implemented on your website.
+
+> To logout from dashboard, simply click 'Log Out' button under “Howdy, _nickname” on the top right corner of your website.
+
+
+Sincerely,
+Proweaver Support Team
+
+2271
+
+
+GIT File Path
+git_file_path
+
+Screenshot File Path
+scrn_file_path
+
