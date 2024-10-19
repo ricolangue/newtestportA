@@ -1,0 +1,35 @@
+*Add to form section:
+
+
+<?php
+				$prompt_message = '<span class="newsletter" style="color: #FFF;font-size:13px;">Please fill the following:</span>';
+				if(isset($_POST['submit_info'])){
+				@session_start();
+				if(!preg_match("/^[_\.0-9a-zA-Z-]+@([0-9a-zA-Z][0-9a-zA-Z-]+\.)+[a-zA-Z]{2,6}$/i",stripslashes(trim($_POST['Email_Address']))))
+				{ $prompt_message = '<div id="error" style="color: #FFF;font-size:13px;">Please enter a valid email address</div>';}
+				else {
+				$_SESSION['Full_Name'] = (isset($_POST['Full_Name'])) ? $_POST['Full_Name'] : '';
+				$_SESSION['Email_Address'] = (isset($_POST['Email_Address'])) ? $_POST['Email_Address'] : '';
+				$_SESSION['Question_or_Comment'] = (isset($_POST['Question_or_Comment'])) ? $_POST['Question_or_Comment'] : '';
+				echo "<script type='text/javascript'>window.location='".get_home_url()."?p=18#myframe';</script>";
+				}}
+			?>
+
+
+*set form
+		method="post" action="#"
+
+*check name(fields and submit same sa contact us name)
+
+
+----------------Oct-5
+-----------Restoration Health Institute 
+https://office.orchestra.tools/tasks/viewtask/1394871
+Hostname
+104.238.100.115
+Username
+ftprorhi21@restorationhealthinstitute.org
+Password
+r&.jOf.JALcG)=qMLZ
+File Path
+/public_html

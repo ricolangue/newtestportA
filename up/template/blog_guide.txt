@@ -1,0 +1,432 @@
+Steps for BLOG Activation
+*************************
+
+1) Login to WP-Dashboard
+	
+	Setting > Reading > Posts Page (Blog Page)
+
+2) Upload the ff files to theme folder
+ - loop-home.php
+ - loop-single
+ - comments.php
+ - archive.php
+ - author.php
+ - category.php
+ - single.php
+ - tag.php
+ 
+3) index.php and page.php
+- check if same code except
+(loop,home) and (loop,page)
+
+
+4) Add upper and lowercode from index.php or page.php to the ff. php files
+ - archive.php
+ - author.php
+ - category.php
+ - single.php
+ - tag.php
+ 
+ 
+5) Comments.php
+
+- update RECAPTCHA code
+
+6) Upload the ff files to css folder 
+
+- blog_css
+
+
+7) Paste this to head.php for css declaration
+
+<?php if(is_home() || is_author() || is_category() || is_tag() || is_archive()){ ?>
+<link rel="stylesheet" href="<?php bloginfo("template_url") ?>/css/blog_css/blog-page.min.css">
+<?php }?>
+
+<?php if(is_single()) { ?>
+<link rel="stylesheet" href="<?php bloginfo("template_url") ?>/css/blog_css/blog-single.min.css">
+<?php }?>
+
+
+8) Create "blog" folder on "images" folder then upload the company logo and name it "default.png"
+
+9) Search "kriesi_pagination" on functions.php then paste this code
+
+function kriesi_pagination($pages = '', $range = 2)
+{  
+     $showitems = ($range * 2)+1;  
+
+     global $paged;
+     if(empty($paged)) $paged = 1;
+
+     if($pages == '')
+     {
+         global $wp_query;
+         $pages = $wp_query->max_num_pages;
+         if(!$pages)
+         {
+             $pages = 1;
+         }
+     }   
+
+     if(1 != $pages)
+     {
+         echo "<div class='pagination'>";
+         if($paged > 2 && $paged > $range+1 && $showitems < $pages) echo "<a href='".get_pagenum_link(1)."'>&laquo;</a>";
+         if($paged > 1 && $showitems < $pages) echo "<a href='".get_pagenum_link($paged - 1)."'>&lsaquo;</a>";
+
+         for ($i=1; $i <= $pages; $i++)
+         {
+             if (1 != $pages &&( !($i >= $paged+$range+1 || $i <= $paged-$range-1) || $pages <= $showitems ))
+             {
+                 echo ($paged == $i)? "<a class='current'>".$i."</a>":"<a href='".get_pagenum_link($i)."' class='inactive' >".$i."</a>";
+             }
+         }
+
+         if ($paged < $pages && $showitems < $pages) echo "<a href='".get_pagenum_link($paged + 1)."'>&rsaquo;</a>";  
+         if ($paged < $pages-1 &&  $paged+$range-1 < $pages && $showitems < $pages) echo "<a href='".get_pagenum_link($pages)."'>&raquo;</a>";
+         echo "</div>\n";
+     }
+}
+
+10) Open banner.php, replace this code inside <div class="page_title">
+
+<?php if ( is_front_page() ) { ?>
+<?php dynamic_sidebar( 'bnr_info' );?>
+<?php } elseif(!is_home() && !is_author() && !is_category() && !is_tag() && !is_single()){ ?>
+    <h1 class="h1_title"><?php the_title(); ?></h1>
+<?php } else{?>
+    <h1 class="h1_title">Blog</h1>
+<?php }?>
+
+
+
+
+
+Note!!!!!!!!!!!!!!!!!!!!!!!!
+if ever karaan nga blog nya dili same ang non-ban structure e replace lng ni nga code
+
+
+
+      <?php } else { ?>
+            <div class="non_ban">
+            <div class="non_ban_img">
+            <?php if(is_home() && is_author() && is_category() && is_tag() && is_single()) { ?>
+                        <?php if (has_post_thumbnail() ) {?>
+                            <?php the_post_thumbnail('full');?>
+                        <?php }else{ ?>
+                          <figure><img src="<?php bloginfo('template_url'); ?>/images/slider/1303700212.jpg" alt="caregiver and senior woman"></figure>
+                        <?php } ?>
+                <?php } elseif (has_post_thumbnail() && !is_home() && !is_author() && !is_category() && !is_tag() && !is_single()) { ?>
+                    <?php the_post_thumbnail('full');?>
+                <?php } else { ?>
+                  <figure><img src="<?php bloginfo('template_url'); ?>/images/slider/1303700212.jpg" alt="caregiver and senior woman"></figure>
+                <?php } ?>
+            </div>
+
+            <div class="page_title">
+                <?php if ( is_front_page() ) { ?>
+                    <?php dynamic_sidebar( 'bnr_info' );?>
+                <?php } elseif(!is_home() && !is_author() && !is_category() && !is_tag() && !is_single()){ ?>
+                    <h1 class="h1_title"><?php the_title(); ?></h1>
+                <?php } else{?>
+                    <h1 class="h1_title">Blog</h1>
+                <?php }?>
+            </div>
+      </div>
+      <?php }?>
+	  
+	  
+	  
+	  
+
+
+
+11) Open footer.php, replace this code above <?php wp_footer(); ?>
+
+	<?php if(is_single()){ ?>
+        <?php echo do_shortcode("[blog_schema id='" . get_the_ID() . "']"); ?>
+	<?php }?>
+	
+	
+12) Paste this code on functions.php
+
+/////////////////////////////////////////////////////////////////
+/////////////////////////BLOG ACTIVATION/////////////////////////
+/////////////////////////////////////////////////////////////////
+
+
+/**** Start of SEO BLog Schema ****/
+
+function get_blog_schema( $attss ) {
+
+  extract( shortcode_atts( array( 'id' => null, ), $attss ) );
+        $post_schema= get_post_meta( $id, 'Post Schema',true );
+
+  if ($post_schema == '') {
+      $block = '';
+    echo $block;
+  } else {
+      echo $post_schema;
+  }
+  wp_reset_postdata();
+}
+
+add_shortcode( 'blog_schema', 'get_blog_schema' );
+
+/****End of SEO BLog Schema ****/
+
+ 
+
+if ( ! function_exists( 'twentyten_posted_in' ) ) :
+/**
+ * Prints HTML with meta information for the current post (category, tags and permalink).
+ *
+ * @since Twenty Ten 1.0
+ */
+function twentyten_posted_in() {
+    // Retrieves tag list of current post, separated by commas.
+    $tag_list = get_the_tag_list( '', ', ' );
+    if ( $tag_list ) {
+        $posted_in = __( 'This entry was posted in %1$s and tagged %2$s. Bookmark the <a href="%3$s" title="Permalink to %4$s" rel="bookmark">permalink</a>.', 'twentyten' );
+    } elseif ( is_object_in_taxonomy( get_post_type(), 'category' ) ) {
+        $posted_in = __( 'This entry was posted in %1$s. Bookmark the <a href="%3$s" title="Permalink to %4$s" rel="bookmark">permalink</a>.', 'twentyten' );
+    } else {
+        $posted_in = __( 'Bookmark the <a href="%3$s" title="Permalink to %4$s" rel="bookmark">permalink</a>.', 'twentyten' );
+    }
+    // Prints the string, replacing the placeholders.
+    printf(
+        $posted_in,
+        get_the_category_list( ', ' ),
+        $tag_list,
+        get_permalink(),
+        the_title_attribute( 'echo=0' )
+    );
+}
+
+if(!is_admin()){
+    add_action('init', 'search_query_fix');
+    function search_query_fix(){
+        if(isset($_GET['s']) && $_GET['s']==''){
+            $_GET['s']=' ';
+        }
+    }
+}
+
+endif;
+
+ 
+
+/**** For Excerpt Code ****/
+
+function get_excerpt( $count ) {
+$permalink = get_permalink($post->ID);
+$excerpt = get_the_content();
+$excerpt = strip_tags($excerpt);
+$excerpt = substr($excerpt, 0, $count);
+$excerpt = substr($excerpt, 0, strripos($excerpt, " "));
+$excerpt = '<p>'.$excerpt.'... ';
+return $excerpt;
+}
+
+
+/////////////////////////////////////////////////////////////////
+//////////////////////END OF BLOG ACTIVATION/////////////////////
+/////////////////////////////////////////////////////////////////
+
+
+
+13.) Bottom.php
+
+<?php
+	// the query
+	$wpb_all_query = new WP_Query(array(
+
+		'posts_per_page'=>3
+
+		));
+			?>
+
+	<?php if ( $wpb_all_query->have_posts() ) : ?>
+		<!-- the loop -->
+		<?php while ( $wpb_all_query->have_posts() ) : $wpb_all_query->the_post(); ?>
+
+	<section class="btm2_box1">
+		<div class="btm2_box_fig">
+
+			<?php
+					/* Display image on loop-home */
+					$content = get_the_content();
+					$count = preg_match('/src=(["\'])(*?)\1/', $content, $match);
+					if ($count != FALSE){
+					$url = ($match[2] . "\n"); ?>
+					
+						<figure class=""><img src="<?php echo $url; ?>" alt="image"/></figure>
+
+						<?php dynamic_sidebar('btm3_box1');?>
+					
+					<?php }else if (has_post_thumbnail()){ ?>
+
+						<figure class=""><?php the_post_thumbnail('full');?></figure>
+						
+						<?php dynamic_sidebar('btm3_box1');?>
+
+					<?php }else{ ?>
+						<figure class=""><img class="default-img" src="<?php bloginfo("template_url") ?>/images/blog/default.png"/></figure>
+						
+						<?php dynamic_sidebar('btm3_box1');?>
+
+			<?php } ?>
+
+
+		</div>
+			<!-- BLOG TITLE -->
+			<div class="btm2_box_info">
+				<h2 class="heading_none"><cite><?php echo get_the_date(); ?></cite><span><?php the_title(); ?></span></h2>
+					<!-- BLOG DESCRIPTION -->
+				<p><?php echo get_excerpt(100); ?></p>
+				<a href="<?php the_permalink(); ?>" class="button_style"> Read More </a>
+			</div>
+	
+	</section>
+	<?php endwhile; ?>
+			<!-- end of the loop -->
+
+<?php wp_reset_postdata(); ?>
+
+<?php else : ?>
+<p style="color: red;font-size: 20px;"><?php _e( 'No Blog Post' ); ?></p>
+<?php endif; ?>
+
+
+
+
+*************************
+If ever naay rating or attachment ang ka shared unya ang blog kay wala ra. Viseversa sa testimonial
+
+.wppcr_rating, .comment-form-attachment{display: none !important;}
+*************************
+
+
+
+**********************************************************************
+
+Pagination, refer to 404 theme
+
+**********************************************************************
+
+
+.pagination .current, .pagination a:hover { background: #13ae14; color: #fff; }
+
+
+
+**********************************************************************
+
+Add this to style.css and plugins.js, if dili mugana ang required highlight function
+
+**********************************************************************
+
+
+
+to required fields : .blogcommentreq{box-shadow: 0 0 3px #d92800 !important; border: 1px solid #d92800 !important;}
+
+$( document ).ready(function() {
+$("#commentform").click(function(){
+if ($('#author').val() == '') {
+$('#author').addClass( "blogcommentreq" );
+} else {
+$('#author').removeClass( "blogcommentreq" );
+}
+
+if ($('#email').val() == '') {
+$('#email').addClass( "blogcommentreq" );
+} else {
+$('#email').removeClass( "blogcommentreq" );
+}
+
+if ($('#comment').val() == '') {
+$('#comment').addClass( "blogcommentreq" );
+} else {
+$('#comment').removeClass( "blogcommentreq" );
+}
+
+});
+});
+
+
+
+
+**********
+
+Reminders!!
+
+**********
+
+x) Dapat ang non-home banner sa blog dili same sa featured
+x) Check tanan links dapat dili mag 404
+x) Basta 3D ang site send email
+
+
+*char2 pa gamay sa submit kay cute. *
+
+#submit
+  font-size: 13px !important;
+  border-radius: 2px !important;
+  height: 40px !important;
+  width: 150px !important;
+  
+  
+  
+  
+Seeing a sunshine every morning makes me realize that life is short and fleeting. Each day is a chance to bring smile and hope to each human. :D
+  
+  
+  ****************************************************
+  
+  update ni sa function kung guba ang blog page
+  
+  
+  if ( ! function_exists( 'twentyten_posted_in' ) ) :
+/**
+ * Prints HTML with meta information for the current post (category, tags and permalink).
+ *
+ * @since Twenty Ten 1.0
+ */
+function twentyten_posted_in() {
+    // Retrieves tag list of current post, separated by commas.
+    $tag_list = get_the_tag_list( '', ', ' );
+    if ( $tag_list ) {
+        $posted_in = __( 'This entry was posted in %1$s and tagged %2$s. Bookmark the <a href="%3$s" title="Permalink to %4$s" rel="bookmark">permalink</a>.', 'twentyten' );
+    } elseif ( is_object_in_taxonomy( get_post_type(), 'category' ) ) {
+        $posted_in = __( 'This entry was posted in %1$s. Bookmark the <a href="%3$s" title="Permalink to %4$s" rel="bookmark">permalink</a>.', 'twentyten' );
+    } else {
+        $posted_in = __( 'Bookmark the <a href="%3$s" title="Permalink to %4$s" rel="bookmark">permalink</a>.', 'twentyten' );
+    }
+    // Prints the string, replacing the placeholders.
+    printf(
+        $posted_in,
+        get_the_category_list( ', ' ),
+        $tag_list,
+        get_permalink(),
+        the_title_attribute( 'echo=0' )
+    );
+}
+if(!is_admin()){
+    add_action('init', 'search_query_fix');
+    function search_query_fix(){
+        if(isset($_GET['s']) && $_GET['s']==''){
+            $_GET['s']=' ';
+        }
+    }
+}
+endif;
+
+function get_excerpt( $count ) {
+$permalink = get_permalink($post->ID);
+$excerpt = get_the_content();
+$excerpt = strip_tags($excerpt);
+$excerpt = substr($excerpt, 0, $count);
+$excerpt = substr($excerpt, 0, strripos($excerpt, " "));
+$excerpt = '<p>'.$excerpt.'... ';
+return $excerpt;
+}

@@ -1,0 +1,45 @@
+Email Subject: account_name (Website Updates)
+To: to_email
+Cc: cc_email
+Agent queue: to_queue, tsg@proweaver.net
+
+Dear Valued Client,
+
+We have implemented your requested change(s) in the website:
+
+Home
+- activated testimonial feature on the testimonial_location area
+website_link
+
+Testimonials
+- added testimonial feature on the content area
+testimonial_link
+
+Please follow the instructions provided below to manage your testimonials page:
+
+Use your log-in credentials as specified below:
+Link: login_link
+Username: _username
+Password: _password
+
+Approving pending testimonials:
+> To view pending testimonials, click “Comments”.
+> To approve pending comments, select the pending comments you wish to approve and click on the “Approve” link.
+
+After accomplishing the action, the changes will automatically be reflected in your website.
+
+Once you’re done implementing changes in your testimonials page, hover over “Howdy, _nickname” on the upper right portion of your dashboard, then click "Log Out" to avoid any unwanted or unnecessary changes.
+
+
+Sincerely,
+Proweaver Design Team
+
+2271
+
+GIT File Path
+git_file_path
+
+Screenshot File Path
+scrn_file_path
+
+

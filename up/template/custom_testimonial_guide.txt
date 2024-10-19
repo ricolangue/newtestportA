@@ -1,0 +1,324 @@
+Paragraph Intros
+
+> See what our clients have to say about our staff and services by reading some of the testimonials they sent. If you like to share your experience in working with us, you are more than welcome to send your testimonials.
+> Our team works hard to improve the services we offer, and our clients' testimonials are proof that our hard work paid off. Read about our clients' experiences in working closely with us.
+> At (insert company name here), we strive to offer excellent customer service to the people we serve. Check out our clients' feedback about our people, our service, and our company.
+> We take pride in the quality of our team and on how they render the services we offer to our clients. Below are some client testimonials we would love to share with you. These stories are the testament to our teams' dedication to providing excellent care.
+
+
+--------------------------------------------------
+Steps for Normal Testimonial
+--------------------------------------------------
+
+1) BU company folder and db and take Homepage screenshot
+
+2) Login to wordpress then go to Testimonial Page.
+Quick edit > Allow comments
+
+3) upload comment-template.php to wp-includes 
+Note: check lng kay naay para syscon ug dili syscon nga file
+
+4) comments.php
+Update or replace the file
+Location: wp-content/themes/++CompanyName++/comments.php
+
+E update ang recaptcha with site key only 
+
+Remove array('callback' => 'twentyten_comment') inside the sp_list_comments()
+Remove unnecessary comments
+
+
+5) loop-page.php
+ Copy code below and paste this to loop-page.php
+ 
+ //Paste this after this line <?php the_content(); ?>
+ 
+ <?php if(is_page('page_ID_or_permalink')) { comments_template( '', true ); } ?>
+ 
+ Also update "We are still updating...." condition para incase empty ang intro text dili mu display ni c default message nga "We are still updating...."
+ 
+<?php if($post->post_content=="" && !is_page('sitemap') && !is_page('xtestimonial_idx')) { ?>
+	<p>We are still updating our website with contents. Please check back next time.</p>
+<?php } ?>
+ 
+
+6) Upload testimonial.css & testimonial.min.css
+and then paste this code to head.php
+
+	<!--Testimonial-->
+	<?php if(is_page('page_ID_or_permalink')) { ?>
+	<link rel="stylesheet" href="<?php bloginfo("template_url") ?>/css/testimonial_css/testimonial.min.css">
+	<?php }?>
+	
+	
+Addtnl for styling:
+
+Border shadow:
+#respond {width: auto; max-width: 100%; padding: 20px; margin-top: 10px; background: rgba(255, 255, 255, .6); box-shadow: 0 0 5px 0 rgba(55, 55, 55, .25); border-radius: 5px; border: none;}
+ 
+to required fields : 
+.testimonialreq{box-shadow: 0 0 3px #d92800 !important; border: 1px solid #d92800 !important;}
+
+7) Add this to plugin.js & plugin.min.js 
+
+$( document ).ready(function() {
+$("#commentform").click(function(){
+if ($('#author').val() == '') {
+$('#author').addClass( "testimonialreq" );
+} else {
+$('#author').removeClass( "testimonialreq" );
+}
+
+if ($('#email').val() == '') {
+$('#email').addClass( "testimonialreq" );
+} else {
+$('#email').removeClass( "testimonialreq" );
+}
+
+if ($('#comment').val() == '') {
+$('#comment').addClass( "testimonialreq" );
+} else {
+$('#comment').removeClass( "testimonialreq" );
+}
+
+});
+
+
+});
+
+
+//or
+
+// Testimonial 
+$("#commentform").click(function(){
+	if ($('#author').val() == '') {
+	$('#author').addClass( "testimonialreq" );
+	} else {
+	$('#author').removeClass( "testimonialreq" ); 
+	}
+	
+	if ($('#email').val() == '') {
+	$('#email').addClass( "testimonialreq" );
+	} else {
+	$('#email').removeClass( "testimonialreq" );
+	}
+	
+	if ($('#comment').val() == '') {
+	$('#comment').addClass( "testimonialreq" );
+	} else {
+	$('#comment').removeClass( "testimonialreq" );
+	}
+	
+	});
+	
+
+7) Screenshots
+>> Home page
+1.Testimonial_Required_Before
+2.Testimonial_w_waiting_moderation_and_required
+3.WP_dashboard_Comment_section (for approve)
+4.Testimonial_Page_w_approved_and_required_admin
+5.Testimonial_Page_w_approved_and_required
+6.Mobile Testimonial Page (360)
+
+
+8) Once nahuman na ug test, remove comment trash and all section
+
+
+--------------------------------------------------
+Steps for Normal Testimonial w/ Comment Photo (eeeuuuppdddaaaaateeee ni ngaaaa notteeeessss eleenjooooy)
+--------------------------------------------------
+
+1) BU company folder and db and take Homepage screenshot
+
+2) Login to wordpress then go to Testimonial Page.
+Quick edit > Allow comments
+
+3) upload comment-template.php to wp-includes 
+Note: check lng kay naay para syscon ug dili syscon nga file
+
+4) comments.php
+Update or replace the file
+Location: wp-content/themes/++CompanyName++/comments.php
+
+E update ang recaptcha with site key only 
+
+Remove array('callback' => 'twentyten_comment') inside the sp_list_comments()
+Remove unnecessary comments
+
+
+5) loop-page.php
+ Copy code below and paste this to loop-page.php
+ 
+ //Paste this after this line <?php the_content(); ?>
+ 
+<?php if(is_page('page_ID_or_permalink')) { get_includes('testimonials_comments2'); comments_template( '', true ); } ?>
+
+
+ 
+ Then upload to includes "testimonials_comments2.php"
+ 
+  Also update "We are still updating...." condition para incase empty ang intro text dili mu display ni c default message nga "We are still updating...."
+ 
+<?php if($post->post_content=="" && !is_page('sitemap') && !is_page('xtestimonial_idx')) { ?>
+	<p>We are still updating our website with contents. Please check back next time.</p>
+<?php } ?>
+ 
+
+
+6) Upload testimonial.css & testimonial.min.css then paste this code to head.php
+
+	<?php if(is_page('page_ID_or_permalink')) { ?>
+	<link rel="stylesheet" href="<?php bloginfo("template_url") ?>/css/testimonial_css/testimonial.min.css">
+	<?php }?>
+
+Note: lahi ang css sa normal ug with photo nga testimonial
+
+7 Upload testimonials_comments2.php to includes folder 
+Update post ID=# sa upper part sa code
+
+
+8) Upload "dco-comment-attachment" in wp-content/plugins folder for attachment
+Login to dashboard then Activate in Plugins 
+
+
+
+
+9) Add this to functions.php para ni sa waiting moderation
+
+
+add_action( 'set_comment_cookies', function( $comment, $user ) {
+    setcookie( 'ta_comment_wait_approval', '1', 0, '/' );
+}, 10, 2 );
+
+add_action( 'init', function() {
+    if( isset( $_COOKIE['ta_comment_wait_approval'] ) && $_COOKIE['ta_comment_wait_approval'] === '1' ) {
+        setcookie( 'ta_comment_wait_approval', '0', 0, '/' );
+        add_action( 'comment_form_before', function() {
+            if (!is_user_logged_in()){
+            echo "<div id='wait_approval'><p><span>Your comment is awaiting moderation.</span></p></div>";
+					}
+        });
+    }
+});
+
+add_filter( 'comment_post_redirect', function( $location, $comment ) {
+    $location = get_permalink( $comment->comment_post_ID ) . '#wait_approval';
+    return $location;
+}, 10, 2 );
+
+ADD NI SA FOOTER PARA MAWA ANG SUCCESS
+<script>
+$(document).ready(function(){
+	setTimeout(function(){
+		$('#wait_approval').fadeOut();
+	}, 1500)
+})
+</script>
+
+PARA DILI MA UWAW ANG STAR SA COMMENTLIST
+.commentlist li:nth-child(2n+1)  .rating {float: right; margin: 0 0 10px 20px;}
+
+
+11) Bottom.php
+
+
+<?php
+	$args = array(
+	'status' => 'approve',
+	'post_id' => '10',
+	'number' => 3
+
+	);
+	// The Query
+	$comments_query = new WP_Comment_Query;
+	$comments = $comments_query->query($args);
+	$folder_name = get_template ();
+
+	// Comment Loop
+	if ($comments) {
+	foreach ($comments as $comment) {
+
+		// $rates = get_comment_meta(get_comment_ID(), 'rating', TRUE);
+		$attachment_id = get_comment_meta(get_comment_ID(), 'attachment_id', TRUE);
+		$img = wp_get_attachment_url($attachment_id);
+
+		if($img){
+			$img;
+		}else{
+			$img =  'wp-content/themes/'.$folder_name.'/images/dummy.png';
+		}
+
+
+		echo '<section>';
+/* 				echo '<div class="btm1_innrtxt">';
+		echo '<p> ' . $comment->comment_content . '</p>';
+		echo '<h2 class="heading3">' . $comment->comment_author . '</h2>';
+		echo '  <a href="assisted-living-home-testimonials"></a>';
+		echo '</div>'; */
+		echo '<figure class="btm5_fig"><img src="' . $img . '" alt="user icon"></figure>'; 
+		echo '<div class="btm5_box1 btm5_box">';
+		echo '<p class="hometestimonial"> ' . $comment->comment_content . '</p>';
+		echo '<h3>' . $comment->comment_author . '</h3>';
+		echo '</div>';
+		echo '  </section>';
+	}
+	} else {
+	echo '<span style="color:red;font-weight:bold;display:block;">More testimonials will be available soon. Please check back next time.</span>';
+	}
+?>
+
+10) Screenshot Bottom if nay testimonial sa home para naay ma compare
+
+5) Modify bottom
+
+
+
+
+---------------------------
+HOMEPAGE CUSTOM TESTIMONIAL
+---------------------------
+
+<?php
+	$args = array(
+	'status' => 'approve',
+	'post_id' => '84',
+	'number' => 3
+
+	);
+	// The Query
+	$comments_query = new WP_Comment_Query;
+	$comments = $comments_query->query($args);
+	$folder_name = get_template ();
+
+	// Comment Loop
+	if ($comments) {
+	foreach ($comments as $comment) {
+
+		// $rates = get_comment_meta(get_comment_ID(), 'rating', TRUE);
+		$attachment_id = get_comment_meta(get_comment_ID(), 'attachment_id', TRUE);
+		$img = wp_get_attachment_url($attachment_id);
+
+		if($img){
+			$img;
+		}else{
+			$img =  'wp-content/themes/'.$folder_name.'/images/dummy.png';
+		}
+
+
+		echo '<section>';
+		echo '<div class="btm1_carousel_container">';
+		echo '<h2>' . $comment->comment_author . '</h2>';
+		echo '<p class="hometestimonial"> ' . $comment->comment_content . '</p>';
+		echo '</div>';
+		echo '</section>';
+		
+	}
+	} else {
+	echo '<span style="color:red;font-weight:bold;display:block;">More testimonials will be available soon. Please check back next time.</span>';
+	}
+?>
+
+Add this to footer, to limit paragraph
+
+<script type="text/javascript"> $(function(){   $(".hometestimonial").each(function(i){     len=$(this).text().length;     if(len>300)     {       $(this).text($(this).text().substr(0,300)+'...');     }   }); }); </script>

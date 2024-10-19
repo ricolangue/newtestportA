@@ -1,0 +1,25 @@
+Email Subject:	account_name (Online Form Testing)
+To: to_email
+Cc:	cc_email, techx_email and to_queue
+
+Dear Valued Client,
+
+Please be informed that we will be conducting testings on your website's online forms. This is to confirm that your online forms are fully functioning.
+
+website_link
+
+To view all incoming emails submitted from the forms on your website, make sure to regularly check your Online Forms Database Panel. Your email config_email will only be notified. Please see below for your access:
+
+login_link
+Username: _username
+Password: _password
+
+
+Sincerely,
+Proweaver, Inc.
+
+GIT File Path
+git_file_path
+
+Screenshot File Path
+scrn_file_path
